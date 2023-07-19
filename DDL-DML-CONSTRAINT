@@ -1,0 +1,140 @@
+DDL (Data Definition Language):
+DDL adalah bahasa yang digunakan untuk mendefinisikan struktur dan skema basis data. Perintah-perintah DDL digunakan untuk membuat, mengubah, atau menghapus objek basis data seperti tabel, indeks, dan constraint.
+
+CREATE DATABASE: Digunakan untuk membuat basis data baru.
+Sintaks:
+
+CREATE DATABASE nama_basisdata;
+Contoh:
+
+CREATE DATABASE mydatabase;
+CREATE TABLE: Digunakan untuk membuat tabel baru dalam basis data.
+Sintaks:
+
+CREATE TABLE nama_tabel (
+    kolom1 tipe_data_kolom1,
+    kolom2 tipe_data_kolom2,
+    ...
+    PRIMARY KEY (kolom1)
+);
+Contoh:
+
+CREATE TABLE Employees (
+    employee_id INT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    hire_date DATE,
+    department VARCHAR(50)
+);
+
+ALTER TABLE: Digunakan untuk mengubah struktur tabel, menambahkan kolom baru, atau menambahkan constraint setelah tabel dibuat.
+
+Sintaks:
+
+ALTER TABLE nama_tabel
+ADD COLUMN nama_kolom tipe_data,
+ADD CONSTRAINT nama_constraint jenis_constraint (nama_kolom);
+
+Contoh:
+
+ALTER TABLE Employees
+ADD COLUMN salary DECIMAL(10,2),
+ADD CONSTRAINT ck_salary CHECK (salary > 0);
+
+DROP TABLE: Digunakan untuk menghapus tabel beserta seluruh data yang ada di dalamnya.
+Sintaks:
+
+DROP TABLE nama_tabel;
+Contoh:
+
+DROP TABLE Employees;
+
+======================================================================================
+
+DML (Data Manipulation Language):
+DML adalah bahasa yang digunakan untuk memanipulasi data dalam tabel, seperti menyisipkan, memperbarui, menghapus, dan mengambil data.
+
+INSERT INTO: Digunakan untuk menyisipkan data baru ke dalam tabel.
+Sintaks:
+
+INSERT INTO nama_tabel (kolom1, kolom2, ...)
+VALUES (nilai_kolom1, nilai_kolom2, ...);
+Contoh:
+
+INSERT INTO Employees (employee_id, first_name, last_name, hire_date, department)
+VALUES (1, 'John', 'Doe', '2023-07-19', 'HR');
+
+
+UPDATE: Digunakan untuk memperbarui data yang sudah ada dalam tabel.
+Sintaks:
+
+UPDATE nama_tabel
+SET kolom1 = nilai_baru1, kolom2 = nilai_baru2, ...
+WHERE kondisi;
+Contoh:
+
+UPDATE Employees
+SET department = 'Finance'
+WHERE employee_id = 1;
+
+
+DELETE FROM: Digunakan untuk menghapus data dari tabel berdasarkan kondisi tertentu.
+Sintaks:
+
+DELETE FROM nama_tabel
+WHERE kondisi;
+Contoh:
+
+DELETE FROM Employees
+WHERE hire_date < '2022-01-01';
+
+SELECT: Digunakan untuk mengambil data dari tabel.
+Sintaks:
+
+SELECT kolom1, kolom2, ...
+FROM nama_tabel
+WHERE kondisi;
+Contoh:
+
+SELECT employee_id, first_name, last_name, hire_date
+FROM Employees
+WHERE department = 'HR';
+
+==============================================================================
+
+Constraint:
+Constraint digunakan untuk memberlakukan aturan tertentu pada data yang dimasukkan ke dalam tabel, sehingga memastikan integritas data dan konsistensi dalam basis data.
+
+PRIMARY KEY: Menandakan bahwa kolom tertentu adalah kunci utama (primary key) dan akan mengidentifikasi secara unik setiap baris dalam tabel.
+Contoh:
+
+CREATE TABLE Employees (
+    employee_id INT PRIMARY KEY,
+    ...
+);
+
+FOREIGN KEY: Menandakan bahwa kolom tertentu adalah kunci asing (foreign key) yang merujuk ke kolom pada tabel lain, sehingga terjaga relasi antar tabel.
+Contoh:
+
+CREATE TABLE Borrowers (
+    borrower_id INT,
+    book_id INT,
+    FOREIGN KEY (book_id) REFERENCES Books (book_id)
+);
+
+UNIQUE: Menandakan bahwa nilai dalam kolom tertentu harus unik, tidak boleh ada duplikat.
+Contoh:
+
+CREATE TABLE Employees (
+    employee_id INT UNIQUE,
+    ...
+);
+
+CHECK: Menandakan bahwa nilai dalam kolom tertentu harus memenuhi kondisi tertentu.
+Contoh:
+
+CREATE TABLE Employees (
+    employee_id INT,
+    salary DECIMAL(10,2),
+    CONSTRAINT ck_salary CHECK (salary > 0)
+);
