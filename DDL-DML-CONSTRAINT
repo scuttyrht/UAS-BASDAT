@@ -138,3 +138,14 @@ CREATE TABLE Employees (
     salary DECIMAL(10,2),
     CONSTRAINT ck_salary CHECK (salary > 0)
 );
+
+NOT NULL : Digunakan untuk memastikan bahwa field data tidak boleh kosong atau tidak diisi
+
+Contoh 
+
+
+CREATE TABLE Employees (
+
+    employee_position VARCHAR(20) NOT NULL
+
+);
